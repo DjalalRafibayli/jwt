@@ -9,5 +9,6 @@ namespace DataAccessLayer.Abstract.Users
     public interface IUserDal
     {
         bool CheckUserExist(string username, string password);
+        bool CheckUsername(string username);
     }
 }

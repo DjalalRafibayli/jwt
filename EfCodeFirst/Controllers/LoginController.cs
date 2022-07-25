@@ -13,13 +13,15 @@ namespace EfCodeFirst.Controllers
     public class LoginController : Controller
     {
         private readonly IHelperLogin _helperLogin;
+        private readonly IHelperGet _helperGet;
         public IConfiguration Configuration { get; }
 
 
-        public LoginController(IHelperLogin helperLogin, IConfiguration configuration)
+        public LoginController(IHelperLogin helperLogin, IConfiguration configuration, IHelperGet helperGet)
         {
             _helperLogin = helperLogin;
             Configuration = configuration;
+            _helperGet = helperGet;
         }
 
         [HttpGet]
@@ -73,6 +75,22 @@ namespace EfCodeFirst.Controllers
                 p.Message = "Sehv var!";
             }
             return View();
+        }
+
+        public async Task<JsonResult> CheckUsername(LoginViewModel p)
+        {
+            string j = await _helperGet.GetRepoBool(Configuration["Api:baseUrl"] + "Login/CheckUsername", p.Username);
+            
+            bool exist = false;
+            if (j == "true")
+            {
+                exist = true;
+            }
+            else
+            {
+                exist = false;
+            }
+            return Json(exist);
         }
         //public IActionResult Logout()
         //{

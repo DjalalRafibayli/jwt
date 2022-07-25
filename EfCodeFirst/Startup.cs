@@ -42,6 +42,7 @@ namespace EfCodeFirst
             });
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IHelperLogin, HelperLogin>();
+            services.AddSingleton<IHelperGet, HelperGet>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

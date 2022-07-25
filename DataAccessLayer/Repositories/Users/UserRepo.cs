@@ -17,5 +17,13 @@ namespace DataAccessLayer.Repositories.Users
                 return context.Users.Any(x => x.username == username && x.password == password);
             }
         }
+
+        public bool CheckUsername(string username)
+        {
+            using (var context = new Context())
+            {
+                return context.Users.Any(x => x.username == username);
+            }
+        }
     }
 }
