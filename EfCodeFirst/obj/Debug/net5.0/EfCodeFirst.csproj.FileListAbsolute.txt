@@ -84,3 +84,5 @@ C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\EntityLayer
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\EfCodeFirstAPI.pdb
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\DataAccessLayer.pdb
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\EntityLayer.pdb
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views\Login\Index.cshtml.g.cs
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views\AccessDenied\Index.cshtml.g.cs

@@ -1,4 +1,5 @@
 ﻿using EfCodeFirst.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace EfCodeFirst.Controllers
 {
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,12 +19,12 @@ namespace EfCodeFirst.Controllers
         {
             _logger = logger;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Privacy()
         {
             return View();

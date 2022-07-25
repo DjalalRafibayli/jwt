@@ -8,4 +8,15 @@
     <ProjectReference Include="..\EfCodeFirstAPI\EfCodeFirstAPI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\about\" />
+    <Folder Include="wwwroot\images\admin\slider\" />
+    <Folder Include="wwwroot\images\event\" />
+    <Folder Include="wwwroot\images\photos\" />
+    <Folder Include="wwwroot\images\practice\" />
+    <Folder Include="wwwroot\images\services\" />
+    <Folder Include="wwwroot\images\team\" />
+    <Folder Include="wwwroot\images\testimonials\" />
+  </ItemGroup>
+
 </Project>

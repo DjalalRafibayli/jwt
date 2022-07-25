@@ -35,7 +35,7 @@ namespace EfCodeFirstAPI.JWT.Repository
                {
              new Claim(ClaimTypes.Name, jWTUsers.username)
                }),
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
