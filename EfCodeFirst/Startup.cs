@@ -1,7 +1,11 @@
+using EfCodeFirst.Config.Encyript;
 using EfCodeFirst.Share.Api.Helpers;
 using EfCodeFirst.Share.Api.Interfaces.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,9 +44,16 @@ namespace EfCodeFirst
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddDataProtection().UseCryptographicAlgorithms( new AuthenticatedEncryptorConfiguration()
+            { 
+                EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
+                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+            });
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IHelperLogin, HelperLogin>();
             services.AddSingleton<IHelperGet, HelperGet>();
+            services.AddSingleton<IEncyript, Encyript>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
