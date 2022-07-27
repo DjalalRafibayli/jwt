@@ -36,8 +36,13 @@ namespace EfCodeFirst
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                     {
-                        options.LoginPath = "/login";
+                        // options.LoginPath = "/login";
+                        options.LogoutPath = "/logout";
                         options.AccessDeniedPath = "/accessdenied";
+                        options.Events.OnRedirectToLogin = opt => {
+                            opt.HttpContext.Response.Redirect("/login");
+                            return Task.FromResult(0);
+                        };
                     });
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -45,11 +50,7 @@ namespace EfCodeFirst
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDataProtection().UseCryptographicAlgorithms( new AuthenticatedEncryptorConfiguration()
-            { 
-                EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
-                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
-            });
+
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IHelperLogin, HelperLogin>();
             services.AddSingleton<IHelperGet, HelperGet>();

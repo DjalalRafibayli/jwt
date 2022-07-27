@@ -1,8 +1,10 @@
-﻿namespace EfCodeFirst.Config.Encyript
+﻿using System.Threading.Tasks;
+
+namespace EfCodeFirst.Config.Encyript
 {
     public interface IEncyript
     {
-        string Encyription(string text,string key);
-        string Decyription(string cipherText, string key);
+        string Encrypt(string clearText, string EncryptionKey);
+        string Decrypt(string cipherText, string EncryptionKey);
     }
 }

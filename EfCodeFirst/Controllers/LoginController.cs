@@ -66,7 +66,8 @@ namespace EfCodeFirst.Controllers
                     string accessToken = jwtJson.SelectToken("token").Value<string>();
                     CookieOptions cookieOptions = new CookieOptions();
                     cookieOptions.Expires = DateTime.Now.AddHours(1);
-                    Response.Cookies.Append("accessToken", _encyript.Encyription(accessToken, Configuration["Keys:JwtEnckey"]) , cookieOptions);
+                    var encyriptToken =  _encyript.Encrypt(accessToken, Configuration["Keys:JwtEnckey"]);
+                    Response.Cookies.Append("accessToken", encyriptToken, cookieOptions);
                     isAuthenticated = true;
                 }
 
