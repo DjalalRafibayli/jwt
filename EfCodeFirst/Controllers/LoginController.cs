@@ -63,11 +63,14 @@ namespace EfCodeFirst.Controllers
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
 
                     var jwtJson = JObject.Parse(jwtToken);
+                    
                     string accessToken = jwtJson.SelectToken("token").Value<string>();
+                    
                     CookieOptions cookieOptions = new CookieOptions();
                     cookieOptions.Expires = DateTime.Now.AddHours(1);
                     var encyriptToken =  _encyript.Encrypt(accessToken, Configuration["Keys:JwtEnckey"]);
                     Response.Cookies.Append("accessToken", encyriptToken, cookieOptions);
+
                     isAuthenticated = true;
                 }
 

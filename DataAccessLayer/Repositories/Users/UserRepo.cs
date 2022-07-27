@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstract.Users;
 using DataAccessLayer.Concrete;
+using EntityLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,15 @@ namespace DataAccessLayer.Repositories.Users
             {
                 return context.Users.Any(x => x.username == username);
             }
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            using (var context = new Context())
+            {
+                return context.Users.Where(x => x.active == 2).ToList();
+            }
+
         }
     }
 }

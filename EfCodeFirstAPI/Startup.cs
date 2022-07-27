@@ -2,6 +2,7 @@ using DataAccessLayer.Abstract.Users;
 using DataAccessLayer.Repositories.Users;
 using EfCodeFirstAPI.JWT.Interface;
 using EfCodeFirstAPI.JWT.Repository;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,7 +19,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace EfCodeFirstAPI
 {
     public class Startup
@@ -119,6 +119,11 @@ namespace EfCodeFirstAPI
             });
             services.AddSingleton<IJwtSerivce, JWTRepository>();
             services.AddSingleton<IUserDal, UserRepo>();
+
+            #region MediatR
+            //services.AddScoped<IUserDal, UserRepo>();
+            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

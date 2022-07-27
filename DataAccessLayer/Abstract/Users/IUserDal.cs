@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace DataAccessLayer.Abstract.Users
     {
         bool CheckUserExist(string username, string password);
         bool CheckUsername(string username);
+        Task<IEnumerable<User>> GetAllUsers();
     }
 }
