@@ -6,6 +6,7 @@ namespace EfCodeFirst.Share.Api.Interfaces.Helpers
 {
     public interface IHelperGetDatas
     {
-        Task<ResponseWithToken> GetDatas(string apiUrl,LoginViewModel m);
+        //Task<ResponseWithToken> GetDatas(string apiUrl,LoginViewModel m);
+        Task<ResponseWithToken> GetDatas(string apiUrl);
     }
 }

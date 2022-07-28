@@ -1,4 +1,5 @@
 ﻿using EfCodeFirst.Config.Encyript;
+using EfCodeFirst.Models.ApiResponse;
 using EfCodeFirst.Models.ViewModels;
 using EfCodeFirst.Share.Api.Interfaces.Helpers;
 using EfCodeFirstAPI.JWT.Model;
@@ -50,7 +51,10 @@ namespace EfCodeFirst.Controllers
                     password = p.Password
                 };
 
-                string jwtToken = await _helperLogin.LoginRepoAsync(Configuration["Api:baseUrl"] + "Login/authenticate", login);
+                //string jwtToken = await _helperLogin.LoginRepoAsync(Configuration["Api:baseUrl"] + "Login/authenticate", login);
+                ResponseTokens Tokens= await _helperLogin.LoginRepoAsync(Configuration["Api:baseUrl"] + "Login/authenticate", login);
+                string jwtToken = Tokens.Token;
+                string refreshToken = Tokens.refreshToken;
                 if (string.IsNullOrEmpty(jwtToken))
                 {
                     isAuthenticated = false;
@@ -62,15 +66,16 @@ namespace EfCodeFirst.Controllers
                         new Claim(ClaimTypes.Role,"Admin")
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    var jwtJson = JObject.Parse(jwtToken);
+                    //var jwtJson = JObject.Parse(jwtToken);
                     
-                    string accessToken = jwtJson.SelectToken("token").Value<string>();
+                    //string accessToken = jwtJson.SelectToken("token").Value<string>();
                     
                     CookieOptions cookieOptions = new CookieOptions();
-                    cookieOptions.Expires = DateTime.Now.AddHours(1);
-                    var encyriptToken =  _encyript.Encrypt(accessToken, Configuration["Keys:JwtEnckey"]);
+                    cookieOptions.Expires = DateTime.Now.AddHours(0.5);
+                    var encyriptToken =  _encyript.Encrypt(jwtToken, Configuration["Keys:JwtEnckey"]);
+                    var encyriptrefreshToken =  _encyript.Encrypt(refreshToken, Configuration["Keys:JwtEnckey"]);
                     Response.Cookies.Append("accessToken", encyriptToken, cookieOptions);
-
+                    Response.Cookies.Append("refreshToken", encyriptrefreshToken, cookieOptions);
                     isAuthenticated = true;
                 }
 

@@ -35,5 +35,26 @@ namespace DataAccessLayer.Repositories.Users
             }
 
         }
+
+        public User GetSavedRefreshTokens(string username, string refreshToken)
+        {
+            using (var context = new Context())
+            {
+                return context.Users.FirstOrDefault(x => x.username == username && x.refreshtoken == refreshToken && x.active == 2);
+            }
+        }
+
+        public void UpdateUserRefreshToken(string username, string refreshToken)
+        {
+            using (var context = new Context())
+            {
+                var user = context.Users.FirstOrDefault(x => x.username == username);
+                user.refreshtoken = refreshToken;
+                user.refreshtokenExpireTime = DateTime.Now.AddMinutes(30);
+                context.Users.Update(user);
+                
+                context.SaveChanges();
+            }
+        }
     }
 }

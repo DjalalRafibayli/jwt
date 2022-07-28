@@ -53,7 +53,7 @@ namespace EfCodeFirstAPI
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["JWT:Issuer"],
                     ValidAudience = Configuration["JWT:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Key)
+                    IssuerSigningKey = new SymmetricSecurityKey(Key),
                 };
                 o.Events = new JwtBearerEvents
                 {
@@ -81,6 +81,13 @@ namespace EfCodeFirstAPI
                             return Task.CompletedTask;
                         }
 
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context => {
+                        if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                        {
+                            context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
+                        }
                         return Task.CompletedTask;
                     }
                 };

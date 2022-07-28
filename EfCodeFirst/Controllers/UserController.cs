@@ -15,7 +15,7 @@ namespace EfCodeFirst.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var responseApi = await _helperGetDatas.GetDatas();
+            //var responseApi = await _helperGetDatas.GetDatas();
             return View();
         }
     }

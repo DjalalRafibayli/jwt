@@ -14,7 +14,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-1JGN6SC;Database=EfCodeFirstDb;integrated security=true;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-1JGN6SC;Database=EfCodeFirstDb;integrated security=true");
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Active> Activies { get; set; }
@@ -22,7 +22,7 @@ namespace DataAccessLayer.Concrete
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UsersModelBuilder).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserModelBuilder).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ActiveModelBuilder).Assembly);
         }
     }

@@ -12,5 +12,7 @@ namespace DataAccessLayer.Abstract.Users
         bool CheckUserExist(string username, string password);
         bool CheckUsername(string username);
         Task<IEnumerable<User>> GetAllUsers();
+        User GetSavedRefreshTokens(string username, string refreshtoken);
+        void UpdateUserRefreshToken(string username, string refreshToken);
     }
 }

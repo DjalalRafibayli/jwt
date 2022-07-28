@@ -16,7 +16,7 @@ namespace EfCodeFirst.Share.Api.Helpers
             _helperLogin = helperLogin;
         }
 
-        public async Task<ResponseWithToken> GetDatas(string apiUrl, LoginViewModel m)
+        public async Task<ResponseWithToken> GetDatas(string apiUrl)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace EfCodeFirst.Share.Api.Helpers
                     {
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
-                            newToken = await _helperLogin.LoginRepoAsync("https://localhost:5001/api/Login/authenticate", m);
+                            //newToken = await _helperLogin.LoginRepoAsync("https://localhost:5001/api/Login/authenticate");
                             if (string.IsNullOrEmpty(newToken))
                             {
                                 apiResponse = null;

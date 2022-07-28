@@ -54,6 +54,7 @@ namespace EfCodeFirst
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IHelperLogin, HelperLogin>();
             services.AddSingleton<IHelperGet, HelperGet>();
+            services.AddSingleton<IHelperGetDatas, HelperGetDatas>();
             services.AddSingleton<IEncyript, Encyript>();
         }
 
