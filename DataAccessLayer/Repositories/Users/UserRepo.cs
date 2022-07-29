@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstract.Users;
 using DataAccessLayer.Concrete;
+using EfCodeFirst.Models.ViewModels;
 using EntityLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,11 @@ namespace DataAccessLayer.Repositories.Users
             }
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<UserViewModel>> GetAllUsers()
         {
             using (var context = new Context())
             {
-                return context.Users.Where(x => x.active == 2).ToList();
+                return context.Users.Where(x => x.active == 2).Select(x=> new UserViewModel { Id =  x.id , username = x.username, active =  x.active }).ToList();
             }
 
         }

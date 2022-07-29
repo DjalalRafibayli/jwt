@@ -8,6 +8,6 @@ namespace EfCodeFirst.Share.Api.Interfaces.Helpers
 {
     public interface IHelperRefreshToken
     {
-        Task<ResponseTokens> GetTokens(string apiUrl,RequestTokens p);
+        Task<ResponseTokens> GetTokens(RequestTokens p);
     }
 }

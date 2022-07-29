@@ -1,4 +1,12 @@
-﻿
+﻿@using EfCodeFirst.Models.ViewModels
+@model IEnumerable<UsersViewModel>
 
 
 <h1>Users</h1>
+
+@foreach(var item in Model)
+{
+    <tr>@item.Id</tr>
+    <tr>@item.username</tr>
+    <tr>@item.active</tr>
+}

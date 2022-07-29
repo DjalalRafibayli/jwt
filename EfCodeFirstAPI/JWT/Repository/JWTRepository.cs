@@ -36,7 +36,7 @@ namespace EfCodeFirstAPI.JWT.Repository
                {
              new Claim(ClaimTypes.Name, jWTUsers.username)
                }),
-                Expires = DateTime.UtcNow.AddSeconds(60),
+                Expires = DateTime.UtcNow.AddSeconds(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -66,7 +66,7 @@ namespace EfCodeFirstAPI.JWT.Repository
                   {
                  new Claim(ClaimTypes.Name, username)
                   }),
-                    Expires = DateTime.Now.AddMinutes(10),
+                    Expires = DateTime.Now.AddMinutes(30),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var token = tokenHandler.CreateToken(tokenDescriptor);

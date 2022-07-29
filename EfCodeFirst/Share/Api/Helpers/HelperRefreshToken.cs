@@ -1,5 +1,8 @@
-﻿using EfCodeFirst.Models.ApiResponse;
+﻿using EfCodeFirst.Config.Encyript;
+using EfCodeFirst.Models.ApiResponse;
 using EfCodeFirst.Share.Api.Interfaces.Helpers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -10,7 +13,18 @@ namespace EfCodeFirst.Share.Api.Helpers
 {
     public class HelperRefreshToken : IHelperRefreshToken
     {
-        public async Task<ResponseTokens> GetTokens(string apiUrl, RequestTokens p)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IEncyript _encyript;
+        public IConfiguration Configuration { get; }
+
+        public HelperRefreshToken(IHttpContextAccessor httpContextAccessor, IEncyript encyript, IConfiguration configuration)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _encyript = encyript;
+            Configuration = configuration;
+        }
+
+        public async Task<ResponseTokens> GetTokens(RequestTokens p)
         {
             try
             {
@@ -21,12 +35,21 @@ namespace EfCodeFirst.Share.Api.Helpers
                 var responseTokens = new ResponseTokens();
                 using (var httpClient = new HttpClient())
                 {
-                    using (var response = await httpClient.PostAsync(apiUrl, content))
+                    using (var response = await httpClient.PostAsync("https://localhost:5001/api/Login/Refresh", content))
                     {
                         if (response.StatusCode == System.Net.HttpStatusCode.OK)
                         {
                             apiResponse = await response.Content.ReadAsStringAsync();
                             responseTokens = JsonConvert.DeserializeObject<ResponseTokens>(apiResponse);
+
+
+                            CookieOptions cookieOptions = new CookieOptions();
+                            cookieOptions.Expires = DateTime.Now.AddHours(0.5);
+                            var encyriptToken = _encyript.Encrypt(responseTokens.Token, Configuration["Keys:JwtEnckey"]);
+                            var encyriptrefreshToken = _encyript.Encrypt(responseTokens.refreshToken, Configuration["Keys:JwtEnckey"]);
+                            _httpContextAccessor.HttpContext.Response.Cookies.Append("accessToken", encyriptToken, cookieOptions);
+                            _httpContextAccessor.HttpContext.Response.Cookies.Append("refreshToken", encyriptrefreshToken, cookieOptions);
+
                         }
                         else
                         {

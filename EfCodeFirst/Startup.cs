@@ -33,13 +33,20 @@ namespace EfCodeFirst
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                opt.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }
+            )
                 .AddCookie(options =>
                     {
                         // options.LoginPath = "/login";
                         options.LogoutPath = "/logout";
                         options.AccessDeniedPath = "/accessdenied";
-                        options.Events.OnRedirectToLogin = opt => {
+                        options.Events.OnRedirectToLogin = opt =>
+                        {
                             opt.HttpContext.Response.Redirect("/login");
                             return Task.FromResult(0);
                         };
@@ -55,6 +62,9 @@ namespace EfCodeFirst
             services.AddSingleton<IHelperLogin, HelperLogin>();
             services.AddSingleton<IHelperGet, HelperGet>();
             services.AddSingleton<IHelperGetDatas, HelperGetDatas>();
+            services.AddSingleton<IHelperGetTable, HelperGetTable>();
+            services.AddSingleton<IHelperRefreshToken, HelperRefreshToken>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IEncyript, Encyript>();
         }
 

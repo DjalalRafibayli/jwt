@@ -67,14 +67,19 @@ namespace EfCodeFirst.Controllers
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
 
                     //var jwtJson = JObject.Parse(jwtToken);
-                    
+
                     //string accessToken = jwtJson.SelectToken("token").Value<string>();
+                    CookieOptions cookieOptionsToken = new CookieOptions();
+                    cookieOptionsToken.Expires = DateTime.Now.AddMinutes(30);
                     
+
                     CookieOptions cookieOptions = new CookieOptions();
                     cookieOptions.Expires = DateTime.Now.AddHours(0.5);
+                    
                     var encyriptToken =  _encyript.Encrypt(jwtToken, Configuration["Keys:JwtEnckey"]);
                     var encyriptrefreshToken =  _encyript.Encrypt(refreshToken, Configuration["Keys:JwtEnckey"]);
-                    Response.Cookies.Append("accessToken", encyriptToken, cookieOptions);
+                    
+                    Response.Cookies.Append("accessToken", encyriptToken, cookieOptionsToken);
                     Response.Cookies.Append("refreshToken", encyriptrefreshToken, cookieOptions);
                     isAuthenticated = true;
                 }
