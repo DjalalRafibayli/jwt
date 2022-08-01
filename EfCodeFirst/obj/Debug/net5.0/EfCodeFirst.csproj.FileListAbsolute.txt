@@ -32,7 +32,6 @@ C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\EfCodeFirst
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\EfCodeFirst.RazorTargetAssemblyInfo.cs
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\EfCodeFirst.Views.pdb
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\EfCodeFirst.dll
-C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\refint\EfCodeFirst.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\EfCodeFirst.pdb
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\EfCodeFirst.genruntimeconfig.cache
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\ref\EfCodeFirst.dll
@@ -167,3 +166,5 @@ C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\MediatR.Con
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views\User\Index.cshtml.g.cs
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\ref\EfCodeFirst.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\staticwebassets\EfCodeFirst.StaticWebAssets.xml

@@ -7,6 +7,6 @@ C:\Users\Calal\source\repos\EfCodeFirst\EntityLayer\obj\Debug\net5.0\EntityLayer
 C:\Users\Calal\source\repos\EfCodeFirst\EntityLayer\obj\Debug\net5.0\EntityLayer.AssemblyInfo.cs
 C:\Users\Calal\source\repos\EfCodeFirst\EntityLayer\obj\Debug\net5.0\EntityLayer.csproj.CoreCompileInputs.cache
 C:\Users\Calal\source\repos\EfCodeFirst\EntityLayer\obj\Debug\net5.0\EntityLayer.dll
-C:\Users\Calal\source\repos\EfCodeFirst\EntityLayer\obj\Debug\net5.0\refint\EntityLayer.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EntityLayer\obj\Debug\net5.0\EntityLayer.pdb
 C:\Users\Calal\source\repos\EfCodeFirst\EntityLayer\obj\Debug\net5.0\ref\EntityLayer.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EntityLayer\bin\Debug\net5.0\ref\EntityLayer.dll

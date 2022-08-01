@@ -57,7 +57,7 @@ namespace EfCodeFirst
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            #region singleton
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IHelperLogin, HelperLogin>();
             services.AddSingleton<IHelperGet, HelperGet>();
@@ -65,7 +65,9 @@ namespace EfCodeFirst
             services.AddSingleton<IHelperGetTable, HelperGetTable>();
             services.AddSingleton<IHelperRefreshToken, HelperRefreshToken>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IHelperHttpClient, HelperHttpClient>();
             services.AddSingleton<IEncyript, Encyript>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -28,11 +28,12 @@ namespace DataAccessLayer.Repositories.Users
             }
         }
 
-        public async Task<IEnumerable<UserViewModel>> GetAllUsers()
+        public async Task<IEnumerable<UserViewModel>> GetAllUsers(int page, int limit)
         {
             using (var context = new Context())
             {
-                return context.Users.Where(x => x.active == 2).Select(x=> new UserViewModel { Id =  x.id , username = x.username, active =  x.active }).ToList();
+                //return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, active = x.active }).ToList();
+                return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, active = x.active }).Skip((page-1)*limit).Take(limit).ToList();
             }
 
         }
@@ -53,7 +54,7 @@ namespace DataAccessLayer.Repositories.Users
                 user.refreshtoken = refreshToken;
                 user.refreshtokenExpireTime = DateTime.Now.AddMinutes(30);
                 context.Users.Update(user);
-                
+
                 context.SaveChanges();
             }
         }

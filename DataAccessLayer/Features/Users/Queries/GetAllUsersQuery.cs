@@ -13,6 +13,8 @@ namespace DataAccessLayer.Features.Users.Queries
 {
     public class GetAllUsersQuery : IRequest<IEnumerable<UserViewModel>>
     {
+        public int page { get; set; }
+        public int limit { get; set; }
         public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IEnumerable<UserViewModel>>
         {
             private readonly IUserDal _userDal;
@@ -24,7 +26,7 @@ namespace DataAccessLayer.Features.Users.Queries
 
             public async Task<IEnumerable<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
             {
-                return await _userDal.GetAllUsers();
+                return await _userDal.GetAllUsers(request.page,request.limit);
             }
         }
     }

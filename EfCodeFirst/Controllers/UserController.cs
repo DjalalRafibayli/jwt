@@ -22,7 +22,7 @@ namespace EfCodeFirst.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var responseApi = await _helperGetTable.GetTable(Configuration["Api:baseUrl"] + "User/GetAllUsers");
+            var responseApi = await _helperGetTable.GetTable(Configuration["Api:baseUrl"] + "User/GetAllUsers/10/15");
             
             if (responseApi != null)
             {
@@ -31,7 +31,7 @@ namespace EfCodeFirst.Controllers
             }
             else
             {
-                return View();
+                return Redirect("home/error");
             }
         }
     }
