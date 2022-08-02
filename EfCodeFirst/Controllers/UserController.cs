@@ -1,5 +1,6 @@
 ﻿using EfCodeFirst.Models.ViewModels;
 using EfCodeFirst.Share.Api.Interfaces.Helpers;
+using EfCodeFirst.Share.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace EfCodeFirst.Controllers
 {
+    [ServiceFilter(typeof(TokenAttribute))]
     public class UserController : Controller
     {
         private readonly IHelperGetTable _helperGetTable;

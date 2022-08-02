@@ -1,6 +1,7 @@
 using EfCodeFirst.Config.Encyript;
 using EfCodeFirst.Share.Api.Helpers;
 using EfCodeFirst.Share.Api.Interfaces.Helpers;
+using EfCodeFirst.Share.Attributes;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -33,6 +34,7 @@ namespace EfCodeFirst
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddAuthentication(opt =>
             {
                 opt.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -43,7 +45,12 @@ namespace EfCodeFirst
                 .AddCookie(options =>
                     {
                         // options.LoginPath = "/login";
+                        //options.Cookie.HttpOnly = true;
+                        //options.Cookie.Name = "refreshToken";
+                        //options.Cookie.IsEssential = true;
                         options.LogoutPath = "/logout";
+
+
                         options.AccessDeniedPath = "/accessdenied";
                         options.Events.OnRedirectToLogin = opt =>
                         {
@@ -58,6 +65,7 @@ namespace EfCodeFirst
             });
 
             #region singleton
+            services.AddSingleton<TokenAttribute>();
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IHelperLogin, HelperLogin>();
             services.AddSingleton<IHelperGet, HelperGet>();

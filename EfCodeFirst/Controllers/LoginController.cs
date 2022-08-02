@@ -2,6 +2,7 @@
 using EfCodeFirst.Models.ApiResponse;
 using EfCodeFirst.Models.ViewModels;
 using EfCodeFirst.Share.Api.Interfaces.Helpers;
+using EfCodeFirst.Share.Attributes;
 using EfCodeFirstAPI.JWT.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -20,15 +21,18 @@ namespace EfCodeFirst.Controllers
         private readonly IHelperLogin _helperLogin;
         private readonly IHelperGet _helperGet;
         private readonly IEncyript _encyript;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
         public IConfiguration Configuration { get; }
 
 
-        public LoginController(IHelperLogin helperLogin, IConfiguration configuration, IHelperGet helperGet, IEncyript encyript)
+        public LoginController(IHttpContextAccessor httpContextAccessor, IHelperLogin helperLogin, IConfiguration configuration, IHelperGet helperGet, IEncyript encyript)
         {
             _helperLogin = helperLogin;
             Configuration = configuration;
             _helperGet = helperGet;
             _encyript = encyript;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet]
@@ -52,7 +56,7 @@ namespace EfCodeFirst.Controllers
                 };
 
                 //string jwtToken = await _helperLogin.LoginRepoAsync(Configuration["Api:baseUrl"] + "Login/authenticate", login);
-                ResponseTokens Tokens= await _helperLogin.LoginRepoAsync(Configuration["Api:baseUrl"] + "Login/authenticate", login);
+                ResponseTokens Tokens = await _helperLogin.LoginRepoAsync(Configuration["Api:baseUrl"] + "Login/authenticate", login);
                 string jwtToken = Tokens.Token;
                 string refreshToken = Tokens.refreshToken;
                 if (string.IsNullOrEmpty(jwtToken))
@@ -71,14 +75,14 @@ namespace EfCodeFirst.Controllers
                     //string accessToken = jwtJson.SelectToken("token").Value<string>();
                     CookieOptions cookieOptionsToken = new CookieOptions();
                     cookieOptionsToken.Expires = DateTime.Now.AddMinutes(30);
-                    
+
 
                     CookieOptions cookieOptions = new CookieOptions();
                     cookieOptions.Expires = DateTime.Now.AddHours(0.5);
-                    
-                    var encyriptToken =  _encyript.Encrypt(jwtToken, Configuration["Keys:JwtEnckey"]);
-                    var encyriptrefreshToken =  _encyript.Encrypt(refreshToken, Configuration["Keys:JwtEnckey"]);
-                    
+
+                    var encyriptToken = _encyript.Encrypt(jwtToken, Configuration["Keys:JwtEnckey"]);
+                    var encyriptrefreshToken = _encyript.Encrypt(refreshToken, Configuration["Keys:JwtEnckey"]);
+
                     Response.Cookies.Append("accessToken", encyriptToken, cookieOptionsToken);
                     Response.Cookies.Append("refreshToken", encyriptrefreshToken, cookieOptions);
                     isAuthenticated = true;
@@ -121,10 +125,19 @@ namespace EfCodeFirst.Controllers
             }
             return Json(exist);
         }
-        //public IActionResult Logout()
-        //{
-        //    var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        //    return RedirectToAction("Login");
-        //}
+        [HttpGet("logout")]
+        public IActionResult Logout()
+        {
+            var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            //Response.Cookies.Append("accessToken", "");
+            //Response.Cookies.Append("refreshToken", "");
+            
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie);
+            }
+
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

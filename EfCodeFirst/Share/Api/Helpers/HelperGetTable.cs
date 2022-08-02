@@ -18,7 +18,7 @@ namespace EfCodeFirst.Share.Api.Helpers
         private readonly IHelperHttpClient _helperHttpClient;
         public IConfiguration Configuration { get; }
 
-        public HelperGetTable(IHelperRefreshToken helperRefreshToken, IHttpContextAccessor httpContextAccessor, 
+        public HelperGetTable(IHelperRefreshToken helperRefreshToken, IHttpContextAccessor httpContextAccessor,
             IConfiguration configuration, IEncyript encyript, IHelperHttpClient helperHttpClient)
         {
             _helperRefreshToken = helperRefreshToken;
@@ -40,9 +40,10 @@ namespace EfCodeFirst.Share.Api.Helpers
                 accessToken = _encyript.Decrypt(accessToken, Configuration["Keys:JwtEnckey"]);
 
                 var refreshToken = _encyript.Decrypt(_httpContextAccessor.HttpContext.Request.Cookies["refreshToken"], Configuration["Keys:JwtEnckey"]);
-                
-                return apiResponse = await _helperHttpClient.GetResponse(apiUrl,accessToken,refreshToken);
-                
+
+
+                return apiResponse = await _helperHttpClient.GetResponse(apiUrl, accessToken, refreshToken);
+
                 #region comment
                 //using (var httpClient = new HttpClient())
                 //{

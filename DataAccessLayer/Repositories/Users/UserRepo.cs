@@ -32,8 +32,9 @@ namespace DataAccessLayer.Repositories.Users
         {
             using (var context = new Context())
             {
-                //return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, active = x.active }).ToList();
-                return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, active = x.active }).Skip((page-1)*limit).Take(limit).ToList();
+                //return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, active = x.active }).ToList();              
+                return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, 
+                    active = x.active,Count = context.Users.Where(x => x.active == 2).Count() }).Skip((page-1)*limit).Take(limit).ToList();
             }
 
         }
