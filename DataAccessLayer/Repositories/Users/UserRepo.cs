@@ -33,8 +33,15 @@ namespace DataAccessLayer.Repositories.Users
             using (var context = new Context())
             {
                 //return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, active = x.active }).ToList();              
-                return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, 
-                    active = x.active,Count = context.Users.Where(x => x.active == 2).Count() }).Skip((page-1)*limit).Take(limit).ToList();
+
+                var count = context.Users.Where(x => x.active == 2).Count();
+                int pageCount = Convert.ToInt32(Math.Ceiling((double)count / limit));
+                return context.Users.Where(x => x.active == 2).Select(x =>
+                      new UserViewModel
+                      { Id = x.id, active = x.active, activePage = page, limit = limit, pageCount = pageCount, username = x.username }
+                    ).ToList();
+                //return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, 
+                //    active = x.active,Count = context.Users.Where(x => x.active == 2).Count() }).Skip((page-1)*limit).Take(limit).ToList();
             }
 
         }
