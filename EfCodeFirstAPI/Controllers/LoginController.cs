@@ -57,7 +57,10 @@ namespace EfCodeFirstAPI.Controllers
 
                 //retrieve the saved refresh token from database
                 var savedRefreshToken = _userDal.GetSavedRefreshTokens(username, token.RefreshToken);
-
+                if (savedRefreshToken == null)
+                {
+                    return Unauthorized("Invalid attempt!");
+                }
                 if (savedRefreshToken.refreshtoken != token.RefreshToken || savedRefreshToken.refreshtokenExpireTime <= DateTime.Now)
                 {
                     return Unauthorized("Invalid attempt!");
@@ -77,6 +80,51 @@ namespace EfCodeFirstAPI.Controllers
                 //    UserName = username
                 //};
                 _userDal.UpdateUserRefreshToken(username, newJwtToken.RefreshToken);
+                //userServiceRepository.DeleteUserRefreshTokens(username, token.Refresh_Token);
+                //userServiceRepository.AddUserRefreshTokens(obj);
+                //userServiceRepository.SaveCommit();
+                return Ok(newJwtToken);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized("Invalid attempt!");
+            }
+        }
+
+
+        //ancaq refresh token parametri gondermekle token almaq
+        [HttpPost]
+        [Route("refreshToken")]
+        public IActionResult RefreshToken([FromForm] string refreshToken)//,string username
+        {
+            try
+            {
+                //retrieve the saved refresh token from database
+                var savedRefreshToken = _userDal.GetSavedRefreshTokensWithRefresh(refreshToken);
+
+                if (savedRefreshToken == null)
+                {
+                    return Unauthorized("Invalid attempt!");
+                }
+                if (savedRefreshToken.refreshtoken != refreshToken || savedRefreshToken.refreshtokenExpireTime <= DateTime.Now)
+                {
+                    return Unauthorized("Invalid attempt!");
+                }
+
+                var newJwtToken = _jWTService.GenerateRefreshToken(savedRefreshToken.username);
+
+                if (newJwtToken == null)
+                {
+                    return Unauthorized("Invalid attempt!");
+                }
+
+                // saving refresh token to the db
+                //UserRefreshTokens obj = new UserRefreshTokens
+                //{
+                //    RefreshToken = newJwtToken.Refresh_Token,
+                //    UserName = username
+                //};
+                _userDal.UpdateUserRefreshToken(savedRefreshToken.username, newJwtToken.RefreshToken);
                 //userServiceRepository.DeleteUserRefreshTokens(username, token.Refresh_Token);
                 //userServiceRepository.AddUserRefreshTokens(obj);
                 //userServiceRepository.SaveCommit();

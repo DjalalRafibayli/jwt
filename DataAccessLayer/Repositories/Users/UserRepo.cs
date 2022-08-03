@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstract.Users;
 using DataAccessLayer.Concrete;
+using DataAccessLayer.Models.Page;
 using EfCodeFirst.Models.ViewModels;
 using EntityLayer.Models;
 using System;
@@ -28,18 +29,31 @@ namespace DataAccessLayer.Repositories.Users
             }
         }
 
-        public async Task<IEnumerable<UserViewModel>> GetAllUsers(int page, int limit)
+        public async Task<PagedResult<UserViewModel>> GetAllUsers(int page, int limit)
         {
             using (var context = new Context())
             {
                 //return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, active = x.active }).ToList();              
+                UserViewModel userViewModel = new UserViewModel();
 
                 var count = context.Users.Where(x => x.active == 2).Count();
                 int pageCount = Convert.ToInt32(Math.Ceiling((double)count / limit));
-                return context.Users.Where(x => x.active == 2).Select(x =>
+                var query = context.Users.Where(x => x.active == 2).Select(x =>
                       new UserViewModel
-                      { Id = x.id, active = x.active, activePage = page, limit = limit, pageCount = pageCount, username = x.username }
-                    ).ToList();
+                      {
+                          Id = x.id,
+                          active = x.active,
+                          username = x.username,
+                      }
+                      ).Skip((page - 1) * limit).Take(limit).ToList();
+                var result = new PagedResult<UserViewModel>();
+                result.activePage = page;
+                result.limit = limit;
+                result.count = count;
+                result.Results = query;
+                result.countPage = pageCount;
+
+                return result;
                 //return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, 
                 //    active = x.active,Count = context.Users.Where(x => x.active == 2).Count() }).Skip((page-1)*limit).Take(limit).ToList();
             }
@@ -51,6 +65,14 @@ namespace DataAccessLayer.Repositories.Users
             using (var context = new Context())
             {
                 return context.Users.FirstOrDefault(x => x.username == username && x.refreshtoken == refreshToken && x.active == 2);
+            }
+        }
+
+        public User GetSavedRefreshTokensWithRefresh(string refreshToken)
+        {
+            using (var context = new Context())
+            {
+                return context.Users.FirstOrDefault(x => x.refreshtoken == refreshToken && x.active == 2);
             }
         }
 

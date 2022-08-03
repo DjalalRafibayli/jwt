@@ -24,10 +24,9 @@ namespace EfCodeFirst.Share.Attributes
         //}
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var accessToken = _httpContextAccessor.HttpContext.Request.Cookies["accessToken"];
             var refreshToken = _httpContextAccessor.HttpContext.Request.Cookies["refreshToken"];
-            if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
-                context.Result = new RedirectToActionResult("Index","Login",null);
+            if (string.IsNullOrEmpty(refreshToken))
+                context.Result = new RedirectToActionResult("Logout","Login",null);
         }
     }
 }

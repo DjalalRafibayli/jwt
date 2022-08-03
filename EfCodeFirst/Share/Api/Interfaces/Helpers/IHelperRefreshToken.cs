@@ -9,5 +9,6 @@ namespace EfCodeFirst.Share.Api.Interfaces.Helpers
     public interface IHelperRefreshToken
     {
         Task<ResponseTokens> GetTokens(RequestTokens p);
+        Task<ResponseTokens> GetTokensOnlyRefresh(string refreshToken);
     }
 }

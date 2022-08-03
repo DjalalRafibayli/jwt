@@ -1,7 +1,9 @@
 ﻿using EfCodeFirst.Config.Encyript;
 using EfCodeFirst.Models.ApiResponse;
 using EfCodeFirst.Share.Api.Interfaces.Helpers;
+using EfCodeFirst.Share.Logout;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -55,29 +57,43 @@ namespace EfCodeFirst.Share.Api.Helpers
                             var newTokens = await _helperRefreshToken.GetTokens(requestTokens);
                             if (newTokens.Token == null || newTokens.refreshToken == null)
                             {
-                                apiResponse = null;
+                                _httpContextAccessor.HttpContext.Response.Cookies.Delete("refreshToken");
                             }
                         }
                         else if (!string.IsNullOrEmpty(refreshToken))
                         {
                             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                             {
-                                if (accessToken == null || refreshToken == null)
-                                    return null;
-                                RequestTokens requestTokens = new RequestTokens()
-                                {
-                                    refreshToken = refreshToken,
-                                    Token = accessToken
-                                };
-                                var newTokens = await _helperRefreshToken.GetTokens(requestTokens);
+                                var newTokens = await _helperRefreshToken.GetTokensOnlyRefresh(refreshToken);
                                 if (newTokens.Token == null || newTokens.refreshToken == null)
                                 {
                                     apiResponse = null;
                                 }
+                                using (var httpClientAgain = new HttpClient())
+                                {
+                                    httpClientAgain.BaseAddress = new Uri(Configuration["Api:ApiUrl"]);
+                                    httpClientAgain.DefaultRequestHeaders.Accept.Add
+                                        (new MediaTypeWithQualityHeaderValue("application/json"));
+                                    httpClientAgain.DefaultRequestHeaders.Authorization =
+                                        new AuthenticationHeaderValue("Bearer", newTokens.Token);
+                                    using (var responseAgain = await httpClientAgain.GetAsync(apiUrl))
+                                    {
+                                        if (responseAgain.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                                        {
+                                            _httpContextAccessor.HttpContext.Response.Cookies.Delete("refreshToken");
+                                        }
+                                        else
+                                        {
+                                            apiResponse = await responseAgain.Content.ReadAsStringAsync();
+                                        }
+                                    }
+                                }
+
                             }
                         }
                         else
                         {
+                            _httpContextAccessor.HttpContext.Response.Cookies.Delete("refreshToken");
                             apiResponse = null;
                         }
 

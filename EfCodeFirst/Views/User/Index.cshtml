@@ -1,5 +1,8 @@
-﻿@using EfCodeFirst.Models.ViewModels
-@model IEnumerable<UsersViewModel>
+﻿@using EfCodeFirst.Models.ViewModels;
+@using EfCodeFirst.Models.Page;
+
+
+@model PagedResult<UserViewModel>
 <!--begin::Card-->
 <div class="card card-custom gutter-b">
     <div class="card-header flex-wrap py-3">
@@ -102,7 +105,7 @@
                                 <th class="ai"><i class='la la-edit fa-lg'></i></th>
                                 <th class="ai"><i class='la la-trash fa-lg'></i></th>
                             </tr>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Results)
                             {
                                 <tr>
 
@@ -149,7 +152,7 @@
                     <div class="dataTables_length" id="kt_datatable1_length">
                         <label>
                             Element
-                            <select name="ctl00$Body$SizeTableDrp" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$Body$SizeTableDrp\&#39;,\&#39;\&#39;)&#39;, 0)" id="SizeTableDrp" class="custom-select custom-select-sm form-control form-control-sm" name="kt_datatable1_length" aria-controls="kt_datatable1">
+                            <select id="SizeTableDrp" class="custom-select custom-select-sm form-control form-control-sm" name="kt_datatable1_length" aria-controls="kt_datatable1">
                                 <option selected="selected" value="10">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
@@ -160,15 +163,57 @@
                     </div>
                     <div class="dataTables_paginate paging_simple_numbers" id="kt_datatable1_paginate">
                         <ul class="pagination">
-                            <li class='paginate_button page-item previous disabled' id='kt_datatable1_previous'>
-                                <a href='users2.aspx?page=1' class='page-link'><i class='ki ki-bold-double-arrow-back icon-xs'></i></a>
-                            </li>
-                            <li class='paginate_button page-item previous disabled' id='kt_datatable1_previous'>
-                                <a href='#' aria-controls='kt_datatable1' data-dt-idx='0' tabindex='0' class='page-link'><i class='ki ki-arrow-back'></i></a>
-                            </li>
-                            <li class='paginate_button page-item active'><a href='javascript:void();' aria-controls='kt_datatable1' data-dt-idx='1' tabindex='0' class='page-link'>1</a></li>
-                            <li class='paginate_button page-item next disabled' id='kt_datatable1_next'><a href='users2.aspx?page=2' aria-controls='kt_datatable1' data-dt-idx='6' tabindex='0' class='page-link'><i class='ki ki-arrow-next'></i></a></li>
-                            <li class='paginate_button page-item disabled' id='kt_datatable1_next'><a href='users2.aspx?page=1' aria-controls='kt_datatable1' data-dt-idx='6' tabindex='0' class='page-link'><i class='ki ki-bold-double-arrow-next icon-xs'></i></a></li>
+                           
+                            @*come back to first page*@
+                            @if (Model.activePage != 1 && Model.activePage > 2)
+                            {
+                                <li class='paginate_button page-item previous' id='kt_datatable1_previous'>
+                                    <a href='user?page=1' class='page-link'><i class='ki ki-bold-double-arrow-back icon-xs'></i></a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class='paginate_button page-item previous disabled' id='kt_datatable1_previous'>
+                                    <a href='#' class='page-link'><i class='ki ki-bold-double-arrow-back icon-xs'></i></a>
+                                </li>
+                            }
+                            @*end come back to first page*@
+
+                            @*back to previous page*@
+                            @if (Model.activePage != 1)
+                            {
+                                <li class='paginate_button page-item previous' id='kt_datatable1_previous'>
+                                    <a href='user?page=@(Model.activePage-1)' aria-controls='kt_datatable1' data-dt-idx='0' tabindex='0' class='page-link'><i class='ki ki-arrow-back'></i></a>
+                                </li>
+                            }
+                            @*end back to previous page*@
+
+                            @*pages*@
+                            @{ int page = Model.activePage == 1 ? 1 : (Model.activePage - 1); }
+                            @{ int maxpage = Model.activePage == Model.countPage ? Model.activePage : (Model.activePage + 3); }
+                            @for (int i = page; i <= maxpage; i++)
+                            {
+                                string active = Model.activePage == i ? "active" : "";
+                                <li class="paginate_button page-item @active">
+                                    <a href="user?page=@i" aria-controls='kt_datatable1' data-dt-idx="@i" tabindex='0' class='page-link'>@i</a>
+                                </li>
+                            }
+                            @*end pages*@
+
+                            @*go to next page*@
+                            @if (Model.activePage != Model.countPage)
+                            {
+                                <li class='paginate_button page-item next' id='kt_datatable1_next'>
+                                    <a href='user?page=@(Model.activePage+1)' aria-controls='kt_datatable1' data-dt-idx='@(Model.activePage+1)' tabindex='0' class='page-link'><i class='ki ki-arrow-next'></i></a>
+                                </li>
+                            }
+
+                            @if (Model.activePage != Model.countPage && Model.activePage < Model.countPage - 2)
+                            {
+                                <li class='paginate_button page-item' id='kt_datatable1_next'><a href='user?page=@Model.countPage' aria-controls='kt_datatable1' data-dt-idx='6' tabindex='0' class='page-link'><i class='ki ki-bold-double-arrow-next icon-xs'></i></a></li>
+                            }
+                            @*end go to next page*@
+
                         </ul>
                     </div>
                 </div>

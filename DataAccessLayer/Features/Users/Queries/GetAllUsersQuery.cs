@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Abstract.Users;
+using DataAccessLayer.Models.Page;
 using EfCodeFirst.Models.ViewModels;
 using EntityLayer.Models;
 using MediatR;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Features.Users.Queries
 {
-    public class GetAllUsersQuery : IRequest<IEnumerable<UserViewModel>>
+    public class GetAllUsersQuery : IRequest<PagedResult<UserViewModel>>
     {
         public int page { get; set; }
         public int limit { get; set; }
-        public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IEnumerable<UserViewModel>>
+        public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PagedResult<UserViewModel>>
         {
             private readonly IUserDal _userDal;
 
@@ -24,7 +25,7 @@ namespace DataAccessLayer.Features.Users.Queries
                 _userDal = userDal;
             }
 
-            public async Task<IEnumerable<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+            public async Task<PagedResult<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
             {
                 return await _userDal.GetAllUsers(request.page,request.limit);
             }

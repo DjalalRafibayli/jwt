@@ -21,6 +21,9 @@ namespace EfCodeFirstAPI.Controllers
         [HttpGet("GetAllUsers/{page}/{limit}")]
         public async Task<IActionResult> GetAllUsers(int page, int limit)
         {
+            page = page == 0 ? 1 : page;
+
+            limit = limit == 0 ? 10 : limit;
             var query = new GetAllUsersQuery() { page = page, limit = limit };
             return Ok(await _mediator.Send(query));
         }
