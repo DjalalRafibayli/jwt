@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32616.157
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32630.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCodeFirst", "EfCodeFirst\EfCodeFirst.csproj", "{08F5B09A-64B0-478B-BD48-4FAB5CB989FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCodeFirst", "EfCodeFirst\EfCodeFirst.csproj", "{08F5B09A-64B0-478B-BD48-4FAB5CB989FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityLayer", "EntityLayer\EntityLayer.csproj", "{F7785BB5-9A26-49AD-BAD3-EEC4B1A50647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityLayer", "EntityLayer\EntityLayer.csproj", "{F7785BB5-9A26-49AD-BAD3-EEC4B1A50647}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{01BF7C0D-FFFD-4363-9A3A-0FB602D86057}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{01BF7C0D-FFFD-4363-9A3A-0FB602D86057}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCodeFirstAPI", "EfCodeFirstAPI\EfCodeFirstAPI.csproj", "{41A8ABDF-3D9F-480E-8190-B43A50AE9123}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCodeFirstAPI", "EfCodeFirstAPI\EfCodeFirstAPI.csproj", "{41A8ABDF-3D9F-480E-8190-B43A50AE9123}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnotherModels", "AnotherModels\AnotherModels.csproj", "{45BF3E1B-3AB7-4D12-8CBA-A63F37004409}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{41A8ABDF-3D9F-480E-8190-B43A50AE9123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41A8ABDF-3D9F-480E-8190-B43A50AE9123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41A8ABDF-3D9F-480E-8190-B43A50AE9123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45BF3E1B-3AB7-4D12-8CBA-A63F37004409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45BF3E1B-3AB7-4D12-8CBA-A63F37004409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45BF3E1B-3AB7-4D12-8CBA-A63F37004409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45BF3E1B-3AB7-4D12-8CBA-A63F37004409}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

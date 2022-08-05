@@ -76,16 +76,18 @@
     <div class="card-body">
         <!--begin: Datatable-->
         <div id="kt_datatable1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-            <div class="row">
-                <div class="col-sm-6 text-left">
-                    <div id="kt_datatable1_filter" class="dataTables_filter">
-                        <label>
-                            Axtar :
-                            <input name="ctl00$Body$SearchAlltxt" type="text" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$Body$SearchAlltxt\&#39;,\&#39;\&#39;)&#39;, 0)" onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;" id="SearchAlltxt" class="form-control form-control-sm" />
-                        </label>
+            <form asp-page="User" method="get">
+                <div class="row">
+                    <div class="col-sm-6 text-left">
+                        <div id="kt_datatable1_filter" class="dataTables_filter">
+                            <label>
+                                Axtar :
+                                <input  name="usernameSearch" type="text" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$Body$SearchAlltxt\&#39;,\&#39;\&#39;)&#39;, 0)" onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;" id="SearchAlltxt" class="form-control form-control-sm" />
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <div class="row table-responsive">
                 <div class="col-sm-12">
                     <div>
@@ -130,7 +132,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a onclick="return (confirm(&quot;Are you sure you want to delete this element?&quot;));" id="LnkDelete" class="btn btn-sm btn-clean btn-icon" title="Delete" href="javascript:__doPostBack(&#39;ctl00$Body$GridView1$ctl02$LnkDelete&#39;,&#39;&#39;)">
+                                        <a id="LnkDelete" class="btn btn-sm btn-clean btn-icon" title="Delete" href="javascript:__doPostBack(&#39;ctl00$Body$GridView1$ctl02$LnkDelete&#39;,&#39;&#39;)">
                                             <i class="la la-trash fa-lg"></i>
                                         </a>
                                     </td>
@@ -149,26 +151,28 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-7 dataTables_pager">
-                    <div class="dataTables_length" id="kt_datatable1_length">
-                        <label>
-                            Element
-                            <select id="SizeTableDrp" class="custom-select custom-select-sm form-control form-control-sm" name="kt_datatable1_length" aria-controls="kt_datatable1">
-                                <option selected="selected" value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            Göstər
-                        </label>
-                    </div>
+                    <form>
+                        <div class="dataTables_length" id="kt_datatable1_length">
+                            <label>
+                                Element
+                                <select asp-for="limit" name="limit" onchange="this.form.submit()" id="SizeTableDrp" class="custom-select custom-select-sm form-control form-control-sm" aria-controls="kt_datatable1">
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                Göstər
+                            </label>
+                        </div>
+                    </form>
                     <div class="dataTables_paginate paging_simple_numbers" id="kt_datatable1_paginate">
                         <ul class="pagination">
-                           
+
                             @*come back to first page*@
                             @if (Model.activePage != 1 && Model.activePage > 2)
                             {
                                 <li class='paginate_button page-item previous' id='kt_datatable1_previous'>
-                                    <a href='user?page=1' class='page-link'><i class='ki ki-bold-double-arrow-back icon-xs'></i></a>
+                                    <a asp-route-page="1" asp-route-limit="@ViewData["limit"]" class='page-link'><i class='ki ki-bold-double-arrow-back icon-xs'></i></a>
                                 </li>
                             }
                             else
@@ -183,19 +187,20 @@
                             @if (Model.activePage != 1)
                             {
                                 <li class='paginate_button page-item previous' id='kt_datatable1_previous'>
-                                    <a href='user?page=@(Model.activePage-1)' aria-controls='kt_datatable1' data-dt-idx='0' tabindex='0' class='page-link'><i class='ki ki-arrow-back'></i></a>
+                                    <a asp-route-page='@(Model.activePage-1)' asp-route-limit="@ViewData["limit"]" aria-controls='kt_datatable1' data-dt-idx='0' tabindex='0' class='page-link'><i class='ki ki-arrow-back'></i></a>
                                 </li>
                             }
                             @*end back to previous page*@
 
                             @*pages*@
                             @{ int page = Model.activePage == 1 ? 1 : (Model.activePage - 1); }
-                            @{ int maxpage = Model.activePage == Model.countPage ? Model.activePage : (Model.activePage + 3); }
+                            @*@{ int maxpage = Model.activePage == Model.countPage ? Model.activePage : (Model.activePage + 3); }*@
+                            @{ int maxpage = Model.activePage == Model.countPage ? Model.activePage : (Model.activePage + 3) <= Model.countPage ? (Model.activePage + 3) : Model.countPage; }
                             @for (int i = page; i <= maxpage; i++)
                             {
                                 string active = Model.activePage == i ? "active" : "";
                                 <li class="paginate_button page-item @active">
-                                    <a href="user?page=@i" aria-controls='kt_datatable1' data-dt-idx="@i" tabindex='0' class='page-link'>@i</a>
+                                    <a asp-route-page="@i" asp-route-limit="@ViewData["limit"]" aria-controls='kt_datatable1' data-dt-idx="@i" tabindex='0' class='page-link'>@i</a>
                                 </li>
                             }
                             @*end pages*@
@@ -204,13 +209,13 @@
                             @if (Model.activePage != Model.countPage)
                             {
                                 <li class='paginate_button page-item next' id='kt_datatable1_next'>
-                                    <a href='user?page=@(Model.activePage+1)' aria-controls='kt_datatable1' data-dt-idx='@(Model.activePage+1)' tabindex='0' class='page-link'><i class='ki ki-arrow-next'></i></a>
+                                    <a asp-route-page='@(Model.activePage+1)' asp-route-limit="@ViewData["limit"]" aria-controls='kt_datatable1' data-dt-idx='@(Model.activePage+1)' tabindex='0' class='page-link'><i class='ki ki-arrow-next'></i></a>
                                 </li>
                             }
 
                             @if (Model.activePage != Model.countPage && Model.activePage < Model.countPage - 2)
                             {
-                                <li class='paginate_button page-item' id='kt_datatable1_next'><a href='user?page=@Model.countPage' aria-controls='kt_datatable1' data-dt-idx='6' tabindex='0' class='page-link'><i class='ki ki-bold-double-arrow-next icon-xs'></i></a></li>
+                                <li class='paginate_button page-item' id='kt_datatable1_next'><a asp-route-page='@Model.countPage' asp-route-limit="@ViewData["limit"]" aria-controls='kt_datatable1' data-dt-idx='6' tabindex='0' class='page-link'><i class='ki ki-bold-double-arrow-next icon-xs'></i></a></li>
                             }
                             @*end go to next page*@
 
@@ -222,3 +227,12 @@
         </div>
     </div>
     <!--end::Card-->
+</div>
+<script>
+    $(document).ready(function () {
+        $("#SizeTableDrp").on("change", function () {
+            //alert(this.value);
+            //@ViewData["limit"] = this.value.toString();
+        });
+    });
+</script>

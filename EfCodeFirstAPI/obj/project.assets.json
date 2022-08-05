@@ -2200,10 +2200,21 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "AnotherModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/AnotherModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AnotherModels.dll": {}
+        }
+      },
       "DataAccessLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "AnotherModels": "1.0.0",
           "EntityLayer": "1.0.0",
           "MediatR": "10.0.1",
           "MediatR.Extensions.Microsoft.DependencyInjection": "10.0.1",
@@ -7460,6 +7471,11 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "AnotherModels/1.0.0": {
+      "type": "project",
+      "path": "../AnotherModels/AnotherModels.csproj",
+      "msbuildProject": "../AnotherModels/AnotherModels.csproj"
     },
     "DataAccessLayer/1.0.0": {
       "type": "project",

@@ -1,4 +1,5 @@
-﻿using EfCodeFirst.Models.Page;
+﻿using AnotherModel.FilterModels.User;
+using EfCodeFirst.Models.Page;
 using EfCodeFirst.Models.ViewModels;
 using EfCodeFirst.Share.Api.Interfaces.Helpers;
 using EfCodeFirst.Share.Attributes;
@@ -31,10 +32,11 @@ namespace EfCodeFirst.Controllers
             {
                 limit = 10;
             }
-
+            ViewData["limit"] = limit;
             string url = string.Format($"{Configuration["Api:baseUrl"] }{$"User/GetAllUsers/{page}/{ limit }"}");
-
-            var responseApi = await _helperGetTable.GetTable(url);
+            UserFM userFM = new UserFM();
+            userFM.username = "demo";
+            var responseApi = await _helperGetTable.GetTable(url, userFM);
 
             //if (responseApi != "" && responseApi != null)
             //{

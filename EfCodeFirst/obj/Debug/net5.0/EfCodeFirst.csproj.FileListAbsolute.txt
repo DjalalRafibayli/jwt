@@ -169,3 +169,5 @@ C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\ref\EfCodeFirst.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\staticwebassets\EfCodeFirst.StaticWebAssets.xml
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views\Error\Index.cshtml.g.cs
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\AnotherModels.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\AnotherModels.pdb

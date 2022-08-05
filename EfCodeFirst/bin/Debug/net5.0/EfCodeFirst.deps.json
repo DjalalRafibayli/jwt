@@ -33,6 +33,7 @@
     ".NETCoreApp,Version=v5.0": {
       "EfCodeFirst/1.0.0": {
         "dependencies": {
+          "AnotherModels": "1.0.0",
           "EfCodeFirstAPI": "1.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "5.0.2",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
@@ -2238,8 +2239,17 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
+      "AnotherModels/1.0.0": {
+        "runtime": {
+          "AnotherModels.dll": {}
+        },
+        "compile": {
+          "AnotherModels.dll": {}
+        }
+      },
       "DataAccessLayer/1.0.0": {
         "dependencies": {
+          "AnotherModels": "1.0.0",
           "EntityLayer": "1.0.0",
           "MediatR": "10.0.1",
           "MediatR.Extensions.Microsoft.DependencyInjection": "10.0.1",
@@ -5134,6 +5144,11 @@
       "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "AnotherModels/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "DataAccessLayer/1.0.0": {
       "type": "project",

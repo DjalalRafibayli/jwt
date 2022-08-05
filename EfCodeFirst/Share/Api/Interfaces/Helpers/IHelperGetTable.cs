@@ -8,5 +8,6 @@ namespace EfCodeFirst.Share.Api.Interfaces.Helpers
     {
         //Task<ResponseWithToken> GetDatas(string apiUrl,LoginViewModel m);
         Task<string> GetTable(string apiUrl);
+        Task<string> GetTable<T>(string apiUrl, T t);
     }
 }

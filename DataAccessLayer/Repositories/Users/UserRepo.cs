@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Abstract.Users;
+﻿using AnotherModel.FilterModels.User;
+using DataAccessLayer.Abstract.Users;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.Models.Page;
 using EfCodeFirst.Models.ViewModels;
@@ -29,16 +30,17 @@ namespace DataAccessLayer.Repositories.Users
             }
         }
 
-        public async Task<PagedResult<UserViewModel>> GetAllUsers(int page, int limit)
+        public async Task<PagedResult<UserViewModel>> GetAllUsers(int page, int limit, UserFM userFM)
         {
             using (var context = new Context())
             {
                 //return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, active = x.active }).ToList();              
                 UserViewModel userViewModel = new UserViewModel();
-
-                var count = context.Users.Where(x => x.active == 2).Count();
-                int pageCount = Convert.ToInt32(Math.Ceiling((double)count / limit));
-                var query = context.Users.Where(x => x.active == 2).Select(x =>
+                IQueryable<User> queryList = context.Users.Where(x => x.active == 2);
+                //queryList = context.Users.Where(x => x.active == 2 && x.username.Contains(userFM.username));
+                if (!string.IsNullOrEmpty(userFM.username))
+                    queryList = queryList.Where(x=> x.username.Contains(userFM.username));
+                var query = queryList.Select(x =>
                       new UserViewModel
                       {
                           Id = x.id,
@@ -46,6 +48,21 @@ namespace DataAccessLayer.Repositories.Users
                           username = x.username,
                       }
                       ).Skip((page - 1) * limit).Take(limit).ToList();
+
+
+                //var query = context.Users.Where(x => x.active == 2).Select(x =>
+                //  new UserViewModel
+                //  {
+                //      Id = x.id,
+                //      active = x.active,
+                //      username = x.username,
+                //  }
+                //  ).Skip((page - 1) * limit).Take(limit).ToList();
+                //var count = context.Users.Where(x => x.active == 2).Count();
+                var count = queryList.Count();
+                int pageCount = Convert.ToInt32(Math.Ceiling((double)count / limit));
+
+
                 var result = new PagedResult<UserViewModel>();
                 result.activePage = page;
                 result.limit = limit;

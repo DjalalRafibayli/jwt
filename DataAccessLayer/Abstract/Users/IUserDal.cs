@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Models.Page;
+﻿using AnotherModel.FilterModels.User;
+using DataAccessLayer.Models.Page;
 using EfCodeFirst.Models.ViewModels;
 using EntityLayer.Models;
 using System;
@@ -13,7 +14,7 @@ namespace DataAccessLayer.Abstract.Users
     {
         bool CheckUserExist(string username, string password);
         bool CheckUsername(string username);
-        Task<PagedResult<UserViewModel>> GetAllUsers(int page, int limit);
+        Task<PagedResult<UserViewModel>> GetAllUsers(int page, int limit, UserFM userFM);
         User GetSavedRefreshTokens(string username, string refreshtoken);
         User GetSavedRefreshTokensWithRefresh(string refreshToken);
         void UpdateUserRefreshToken(string username, string refreshToken);

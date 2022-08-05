@@ -50,9 +50,8 @@ namespace EfCodeFirst
                         //options.Cookie.Name = "refreshToken";
                         //options.Cookie.IsEssential = true;
                         options.LogoutPath = "/logout";
-
-
                         options.AccessDeniedPath = "/accessdenied";
+                        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                         options.Events.OnRedirectToLogin = opt =>
                         {
                             opt.HttpContext.Response.Redirect("/login");

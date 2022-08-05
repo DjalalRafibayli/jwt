@@ -69,3 +69,5 @@ C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirstAPI\bin\Debug\net5.0\MediatR.
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirstAPI\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirstAPI\bin\Debug\net5.0\ref\EfCodeFirstAPI.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirstAPI\obj\Debug\net5.0\staticwebassets\EfCodeFirstAPI.StaticWebAssets.xml
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirstAPI\bin\Debug\net5.0\AnotherModels.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirstAPI\bin\Debug\net5.0\AnotherModels.pdb

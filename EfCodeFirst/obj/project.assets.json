@@ -2723,10 +2723,21 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "AnotherModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/AnotherModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AnotherModels.dll": {}
+        }
+      },
       "DataAccessLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "AnotherModels": "1.0.0",
           "EntityLayer": "1.0.0",
           "MediatR": "10.0.1",
           "MediatR.Extensions.Microsoft.DependencyInjection": "10.0.1",
@@ -8950,6 +8961,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "AnotherModels/1.0.0": {
+      "type": "project",
+      "path": "../AnotherModels/AnotherModels.csproj",
+      "msbuildProject": "../AnotherModels/AnotherModels.csproj"
+    },
     "DataAccessLayer/1.0.0": {
       "type": "project",
       "path": "../DataAccessLayer/DataAccessLayer.csproj",
@@ -8968,6 +8984,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "AnotherModels >= 1.0.0",
       "EfCodeFirstAPI >= 1.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2"
     ]
@@ -9001,6 +9018,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "C:\\Users\\Calal\\source\\repos\\EfCodeFirst\\AnotherModels\\AnotherModels.csproj": {
+              "projectPath": "C:\\Users\\Calal\\source\\repos\\EfCodeFirst\\AnotherModels\\AnotherModels.csproj"
+            },
             "C:\\Users\\Calal\\source\\repos\\EfCodeFirst\\EfCodeFirstAPI\\EfCodeFirstAPI.csproj": {
               "projectPath": "C:\\Users\\Calal\\source\\repos\\EfCodeFirst\\EfCodeFirstAPI\\EfCodeFirstAPI.csproj"
             }
