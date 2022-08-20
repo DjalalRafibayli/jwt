@@ -1,5 +1,7 @@
 ﻿using AnotherModel.FilterModels.User;
+using DataAccessLayer.Features.Users.Commands;
 using DataAccessLayer.Features.Users.Queries;
+using DataAccessLayer.Models.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,13 +21,22 @@ namespace EfCodeFirstAPI.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("GetAllUsers/{page}/{limit}")]
-        public async Task<IActionResult> GetAllUsers(int page, int limit, [FromQuery] UserFM userFM)
+        [HttpPost("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers(UserFM userFM)
         {
-            page = page == 0 ? 1 : page;
+            userFM.page = userFM.page == 0 ? 1 : userFM.page;
 
-            limit = limit == 0 ? 10 : limit;
-            var query = new GetAllUsersQuery() { page = page, limit = limit, UserFM = userFM };
+            userFM.limit = userFM.limit == 0 ? 10 : userFM.limit;
+
+            var query = new GetAllUsersQuery() { UserFM = userFM };
+            return Ok(await _mediator.Send(query));
+        }
+        [HttpPost("AddUser")]
+        public async Task<IActionResult> AddUser(AddUser addUser)
+        {
+            addUser.active = 2;
+
+            var query = new AddUserCommand() { AddUser = addUser };
             return Ok(await _mediator.Send(query));
         }
     }

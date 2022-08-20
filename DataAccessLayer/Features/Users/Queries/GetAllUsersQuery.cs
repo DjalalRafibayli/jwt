@@ -15,8 +15,6 @@ namespace DataAccessLayer.Features.Users.Queries
 {
     public class GetAllUsersQuery : IRequest<PagedResult<UserViewModel>>
     {
-        public int page { get; set; }
-        public int limit { get; set; }
         public UserFM UserFM { get; set; }
         public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PagedResult<UserViewModel>>
         {
@@ -29,7 +27,7 @@ namespace DataAccessLayer.Features.Users.Queries
 
             public async Task<PagedResult<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
             {
-                return await _userDal.GetAllUsers(request.page,request.limit,request.UserFM);
+                return await _userDal.GetAllUsers(request.UserFM);
             }
         }
     }

@@ -1,6 +1,5 @@
 C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\bin\Debug\net5.0\AnotherModels.deps.json
 C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\bin\Debug\net5.0\AnotherModels.dll
-C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\bin\Debug\net5.0\ref\AnotherModels.dll
 C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\bin\Debug\net5.0\AnotherModels.pdb
 C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\obj\Debug\net5.0\AnotherModels.csproj.AssemblyReference.cache
 C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\obj\Debug\net5.0\AnotherModels.GeneratedMSBuildEditorConfig.editorconfig
@@ -10,3 +9,4 @@ C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\obj\Debug\net5.0\AnotherMo
 C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\obj\Debug\net5.0\AnotherModels.dll
 C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\obj\Debug\net5.0\ref\AnotherModels.dll
 C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\obj\Debug\net5.0\AnotherModels.pdb
+C:\Users\Calal\source\repos\EfCodeFirst\AnotherModels\obj\Debug\net5.0\refint\AnotherModels.dll

@@ -67,7 +67,7 @@ namespace EfCodeFirst.Controllers
                 {
                     identity = new ClaimsIdentity(new[] {
                         new Claim(ClaimTypes.Name,p.Username),
-                        new Claim(ClaimTypes.Role,"Admin")
+                        new Claim(ClaimTypes.Role,"User")
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
 
                     //var jwtJson = JObject.Parse(jwtToken);

@@ -37,7 +37,7 @@ namespace EfCodeFirst.Share.Api.Helpers
                 //var content = new StringContent(JsonConvert.SerializeObject(username, Formatting.Indented), Encoding.UTF8, "application/json");
                 //var content = new StringContent(username);
                 string apiResponse = null;
-                string newToken = null;
+                //string newToken = null;
                 var accessToken = _httpContextAccessor.HttpContext.Request.Cookies["accessToken"];
                 accessToken = _encyript.Decrypt(accessToken, Configuration["Keys:JwtEnckey"]);
 
@@ -117,14 +117,14 @@ namespace EfCodeFirst.Share.Api.Helpers
                 var content = new StringContent(JsonConvert.SerializeObject(t, Formatting.Indented), Encoding.UTF8, "application/json");
                 //var content = new StringContent(username);
                 string apiResponse = null;
-                string newToken = null;
+                //string newToken = null;
                 var accessToken = _httpContextAccessor.HttpContext.Request.Cookies["accessToken"];
                 accessToken = _encyript.Decrypt(accessToken, Configuration["Keys:JwtEnckey"]);
 
                 var refreshToken = _encyript.Decrypt(_httpContextAccessor.HttpContext.Request.Cookies["refreshToken"], Configuration["Keys:JwtEnckey"]);
 
 
-                return apiResponse = await _helperHttpClient.GetResponse(apiUrl, accessToken, refreshToken);
+                return apiResponse = await _helperHttpClient.GetResponse(t,apiUrl, accessToken, refreshToken);
 
                 #region comment
                 //using (var httpClient = new HttpClient())

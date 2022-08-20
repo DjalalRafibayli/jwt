@@ -2,6 +2,7 @@
 using DataAccessLayer.Abstract.Users;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.Models.Page;
+using DataAccessLayer.Models.Users;
 using EfCodeFirst.Models.ViewModels;
 using EntityLayer.Models;
 using System;
@@ -14,6 +15,27 @@ namespace DataAccessLayer.Repositories.Users
 {
     public class UserRepo : IUserDal
     {
+        public async Task<string> AddUser(AddUser u)
+        {
+            using (var context = new Context())
+            {
+                var userIsExist = context.Users.Any(x => x.username == u.username);
+                if (userIsExist)
+                    return ("Bele bir user movcuddur");
+
+                User user = new User()
+                {
+                    username = u.username,
+                    active = u.active,
+                    password = u.password
+                };
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+                
+                return ("hazir");
+            }
+        }
+
         public bool CheckUserExist(string username, string password)
         {
             using (var context = new Context())
@@ -30,8 +52,11 @@ namespace DataAccessLayer.Repositories.Users
             }
         }
 
-        public async Task<PagedResult<UserViewModel>> GetAllUsers(int page, int limit, UserFM userFM)
+        public async Task<PagedResult<UserViewModel>> GetAllUsers(UserFM userFM)
         {
+            var page = userFM.page;
+            var limit = userFM.limit;
+
             using (var context = new Context())
             {
                 //return context.Users.Where(x => x.active == 2).Select(x => new UserViewModel { Id = x.id, username = x.username, active = x.active }).ToList();              
@@ -39,7 +64,7 @@ namespace DataAccessLayer.Repositories.Users
                 IQueryable<User> queryList = context.Users.Where(x => x.active == 2);
                 //queryList = context.Users.Where(x => x.active == 2 && x.username.Contains(userFM.username));
                 if (!string.IsNullOrEmpty(userFM.username))
-                    queryList = queryList.Where(x=> x.username.Contains(userFM.username));
+                    queryList = queryList.Where(x => x.username.Contains(userFM.username));
                 var query = queryList.Select(x =>
                       new UserViewModel
                       {

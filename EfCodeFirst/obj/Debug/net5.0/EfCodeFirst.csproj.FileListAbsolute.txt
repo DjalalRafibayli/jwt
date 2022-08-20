@@ -166,8 +166,14 @@ C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\MediatR.Con
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views\User\Index.cshtml.g.cs
-C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\ref\EfCodeFirst.dll
-C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\staticwebassets\EfCodeFirst.StaticWebAssets.xml
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views\Error\Index.cshtml.g.cs
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\AnotherModels.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\AnotherModels.pdb
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\refint\EfCodeFirst.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\System.Web.Http.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\FluentValidation.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views\User\Create.cshtml.g.cs

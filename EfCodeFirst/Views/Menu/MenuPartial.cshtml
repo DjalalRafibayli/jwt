@@ -1,4 +1,7 @@
 ﻿<ul class="menu-nav">
+    @if (User.IsInRole("Admin"))
+    {
+     
     <li class="menu-item" aria-haspopup="true">
         <a href="/user" class="menu-link">
             <i class="menu-bullet menu-bullet-dot">
@@ -6,7 +9,8 @@
             </i>
             <span class="menu-text">İstifadəçilər</span>
         </a>
-    </li>
+    </li>   
+    }
     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
         <a href="javascript:;" class="menu-link menu-toggle">
             <span class="svg-icon menu-icon">
