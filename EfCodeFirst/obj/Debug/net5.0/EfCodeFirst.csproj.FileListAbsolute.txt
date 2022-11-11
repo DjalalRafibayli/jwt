@@ -177,3 +177,4 @@ C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\FluentValid
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views\User\Create.cshtml.g.cs
+C:\Users\Calal\source\repos\EfCodeFirst\EfCodeFirst\obj\Debug\net5.0\Razor\Views\OlanSeydi\Index.cshtml.g.cs

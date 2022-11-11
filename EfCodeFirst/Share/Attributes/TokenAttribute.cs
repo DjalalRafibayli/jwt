@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 namespace EfCodeFirst.Share.Attributes
 {
@@ -24,7 +25,7 @@ namespace EfCodeFirst.Share.Attributes
         //}
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var refreshToken = _httpContextAccessor.HttpContext.Request.Cookies["refreshToken"];
+            var refreshToken = _httpContextAccessor.HttpContext.Request.Cookies[OpenIdConnectParameterNames.RefreshToken];
             if (string.IsNullOrEmpty(refreshToken))
                 context.Result = new RedirectToActionResult("Logout","Login",null);
         }

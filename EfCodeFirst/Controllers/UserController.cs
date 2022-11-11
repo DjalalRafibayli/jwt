@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace EfCodeFirst.Controllers
 {
     [ServiceFilter(typeof(TokenAttribute))]
-    [Authorize(Roles ="Admin")]
+    [Authorize]
     
     public class UserController : Controller
     {

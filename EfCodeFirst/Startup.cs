@@ -1,6 +1,8 @@
 using EfCodeFirst.Config.Encyript;
+using EfCodeFirst.Share.Api.Delegation;
 using EfCodeFirst.Share.Api.Helpers;
 using EfCodeFirst.Share.Api.Interfaces.Helpers;
+using EfCodeFirst.Share.Api.Interfaces.Request;
 using EfCodeFirst.Share.Attributes;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +36,10 @@ namespace EfCodeFirst
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<IRequest, Request>()
+                .ConfigureHttpClient(c=> c.BaseAddress = new Uri(Configuration["Api:ApiUrl"]))
+                .AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+            
             services.AddControllersWithViews();
 
             services.AddAuthentication(opt =>
@@ -75,6 +81,7 @@ namespace EfCodeFirst
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IHelperHttpClient, HelperHttpClient>();
             services.AddSingleton<IEncyript, Encyript>();
+            services.AddSingleton<IRequest, Request>();
             #endregion
         }
 

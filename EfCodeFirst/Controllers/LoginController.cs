@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Security.Claims;
@@ -83,8 +84,8 @@ namespace EfCodeFirst.Controllers
                     var encyriptToken = _encyript.Encrypt(jwtToken, Configuration["Keys:JwtEnckey"]);
                     var encyriptrefreshToken = _encyript.Encrypt(refreshToken, Configuration["Keys:JwtEnckey"]);
 
-                    Response.Cookies.Append("accessToken", encyriptToken, cookieOptionsToken);
-                    Response.Cookies.Append("refreshToken", encyriptrefreshToken, cookieOptions);
+                    Response.Cookies.Append(OpenIdConnectParameterNames.AccessToken, encyriptToken, cookieOptionsToken);
+                    Response.Cookies.Append(OpenIdConnectParameterNames.RefreshToken, encyriptrefreshToken, cookieOptions);
                     isAuthenticated = true;
                 }
 
